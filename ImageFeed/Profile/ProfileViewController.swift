@@ -73,8 +73,6 @@ final class ProfileViewController: UIViewController {
     }
 
     private func showAvatarImageView() {
-        avatarImageView.layer.masksToBounds = true
-        avatarImageView.layer.cornerRadius = 50
         avatarImageView.leadingAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.leadingAnchor,
             constant: 16
