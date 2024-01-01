@@ -17,6 +17,7 @@
 		FA3D13472B2B110C00E52567 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D13462B2B110C00E52567 /* ProfileViewController.swift */; };
 		FA410E952B430859009BF045 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA410E942B430859009BF045 /* Constants.swift */; };
 		FA410E972B43151F009BF045 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA410E962B43151F009BF045 /* AuthViewController.swift */; };
+		FA410E9A2B43195C009BF045 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA410E992B43195C009BF045 /* WebViewViewController.swift */; };
 		FAAC66C32B1E07D30007E7C7 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAC66C22B1E07D30007E7C7 /* ImagesListCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		FA3D13462B2B110C00E52567 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FA410E942B430859009BF045 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FA410E962B43151F009BF045 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		FA410E992B43195C009BF045 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		FAAC66C22B1E07D30007E7C7 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				FA410E962B43151F009BF045 /* AuthViewController.swift */,
+				FA410E992B43195C009BF045 /* WebViewViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				FA410E972B43151F009BF045 /* AuthViewController.swift in Sources */,
 				FA410E952B430859009BF045 /* Constants.swift in Sources */,
 				FA065ED02B3074C000B584B4 /* SingleImageViewController.swift in Sources */,
+				FA410E9A2B43195C009BF045 /* WebViewViewController.swift in Sources */,
 				FA3148162B1B27A5006E5BE9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

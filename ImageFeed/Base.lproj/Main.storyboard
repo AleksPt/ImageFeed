@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2iM-qe-nrm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bUN-wn-R8B">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -216,6 +216,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="Nbb-Z9-MZT" kind="presentation" identifier="ShowWebView" id="89Q-nE-5eH"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Sy7-8T-XKV"/>
@@ -275,11 +278,55 @@
             </objects>
             <point key="canvasLocation" x="-1851" y="92"/>
         </scene>
+        <!--Web View View Controller-->
+        <scene sceneID="4sx-8x-Xab">
+            <objects>
+                <viewController modalPresentationStyle="overFullScreen" id="Nbb-Z9-MZT" customClass="WebViewViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9Xe-tq-JWM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UDt-6k-8fH">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSX-g4-upa">
+                                <rect key="frame" x="8" y="11" width="24" height="24"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="nav_back_button"/>
+                                <connections>
+                                    <action selector="didTapBackButton:" destination="Nbb-Z9-MZT" eventType="touchUpInside" id="V58-vx-Sux"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ih4-xz-eAC"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="UDt-6k-8fH" secondAttribute="trailing" id="EmJ-gX-S8A"/>
+                            <constraint firstItem="CSX-g4-upa" firstAttribute="top" secondItem="ih4-xz-eAC" secondAttribute="top" constant="11" id="Hao-dY-tMg"/>
+                            <constraint firstItem="CSX-g4-upa" firstAttribute="leading" secondItem="ih4-xz-eAC" secondAttribute="leading" constant="8" id="faK-Q4-7qG"/>
+                            <constraint firstItem="UDt-6k-8fH" firstAttribute="leading" secondItem="9Xe-tq-JWM" secondAttribute="leading" id="oXc-6A-mpb"/>
+                            <constraint firstItem="UDt-6k-8fH" firstAttribute="top" secondItem="9Xe-tq-JWM" secondAttribute="top" id="rLz-MG-yPd"/>
+                            <constraint firstAttribute="bottom" secondItem="UDt-6k-8fH" secondAttribute="bottom" id="tWI-Cm-TTc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="UDt-6k-8fH" id="FMp-Zi-mDT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lRL-ei-iup" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-942" y="939"/>
+        </scene>
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
         <image name="auth_screen_logo" width="60" height="60"/>
         <image name="like_button_on" width="44" height="44"/>
+        <image name="nav_back_button" width="24" height="24"/>
         <image name="nav_back_button_white" width="24" height="24"/>
         <image name="share_button" width="50" height="50"/>
         <image name="tab_editorial_active" width="30" height="30"/>
