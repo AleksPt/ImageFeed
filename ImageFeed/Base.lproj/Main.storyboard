@@ -302,11 +302,18 @@
                                     <action selector="didTapBackButton:" destination="Nbb-Z9-MZT" eventType="touchUpInside" id="V58-vx-Sux"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zeE-a3-71i">
+                                <rect key="frame" x="0.0" y="40" width="414" height="4"/>
+                                <color key="progressTintColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ih4-xz-eAC"/>
                         <constraints>
+                            <constraint firstItem="zeE-a3-71i" firstAttribute="leading" secondItem="ih4-xz-eAC" secondAttribute="leading" id="00W-tP-Hcl"/>
                             <constraint firstAttribute="trailing" secondItem="UDt-6k-8fH" secondAttribute="trailing" id="EmJ-gX-S8A"/>
                             <constraint firstItem="CSX-g4-upa" firstAttribute="top" secondItem="ih4-xz-eAC" secondAttribute="top" constant="11" id="Hao-dY-tMg"/>
+                            <constraint firstItem="zeE-a3-71i" firstAttribute="top" secondItem="ih4-xz-eAC" secondAttribute="top" constant="40" id="WXa-bR-yfq"/>
+                            <constraint firstItem="zeE-a3-71i" firstAttribute="trailing" secondItem="ih4-xz-eAC" secondAttribute="trailing" id="b7V-wv-Uv5"/>
                             <constraint firstItem="CSX-g4-upa" firstAttribute="leading" secondItem="ih4-xz-eAC" secondAttribute="leading" constant="8" id="faK-Q4-7qG"/>
                             <constraint firstItem="UDt-6k-8fH" firstAttribute="leading" secondItem="9Xe-tq-JWM" secondAttribute="leading" id="oXc-6A-mpb"/>
                             <constraint firstItem="UDt-6k-8fH" firstAttribute="top" secondItem="9Xe-tq-JWM" secondAttribute="top" id="rLz-MG-yPd"/>
@@ -314,6 +321,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="progressView" destination="zeE-a3-71i" id="jEV-lw-XOd"/>
                         <outlet property="webView" destination="UDt-6k-8fH" id="FMp-Zi-mDT"/>
                     </connections>
                 </viewController>
