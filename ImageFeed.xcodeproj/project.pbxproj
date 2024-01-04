@@ -24,6 +24,7 @@
 		FAC3F0812B449316006E7F02 /* OAuthTokenResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3F0802B449316006E7F02 /* OAuthTokenResponseBody.swift */; };
 		FAC3F0842B4493E5006E7F02 /* URLRequestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3F0832B4493E5006E7F02 /* URLRequestExtension.swift */; };
 		FAC3F0862B449416006E7F02 /* URLSessionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3F0852B449416006E7F02 /* URLSessionExtension.swift */; };
+		FAEB700D2B46C37100C412EA /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB700C2B46C37100C412EA /* SplashViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		FAC3F0802B449316006E7F02 /* OAuthTokenResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthTokenResponseBody.swift; sourceTree = "<group>"; };
 		FAC3F0832B4493E5006E7F02 /* URLRequestExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestExtension.swift; sourceTree = "<group>"; };
 		FAC3F0852B449416006E7F02 /* URLSessionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionExtension.swift; sourceTree = "<group>"; };
+		FAEB700C2B46C37100C412EA /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,10 +84,11 @@
 				FA3148152B1B27A5006E5BE9 /* SceneDelegate.swift */,
 				FA410E982B431866009BF045 /* Auth */,
 				FAAC66C42B1E07F50007E7C7 /* ImagesList */,
-				FAC3F07D2B4491C5006E7F02 /* OAuth */,
+				FAC3F07D2B4491C5006E7F02 /* OAuth2 */,
 				FA3D13482B2B20C400E52567 /* Profile */,
 				FAC3F0822B4493C5006E7F02 /* Services */,
 				FA8A609B2B3090250098FA1F /* SingleImageView */,
+				FAEB700B2B46C35700C412EA /* SplashViewController */,
 				FA3148192B1B27A5006E5BE9 /* Main.storyboard */,
 				FA31481C2B1B27A6006E5BE9 /* Assets.xcassets */,
 				FA31481E2B1B27A6006E5BE9 /* LaunchScreen.storyboard */,
@@ -128,14 +131,14 @@
 			path = ImagesList;
 			sourceTree = "<group>";
 		};
-		FAC3F07D2B4491C5006E7F02 /* OAuth */ = {
+		FAC3F07D2B4491C5006E7F02 /* OAuth2 */ = {
 			isa = PBXGroup;
 			children = (
 				FAC3F07A2B4490C4006E7F02 /* OAuth2Service.swift */,
 				FAC3F07E2B4491EE006E7F02 /* OAuth2TokenStorage.swift */,
 				FAC3F0802B449316006E7F02 /* OAuthTokenResponseBody.swift */,
 			);
-			path = OAuth;
+			path = OAuth2;
 			sourceTree = "<group>";
 		};
 		FAC3F0822B4493C5006E7F02 /* Services */ = {
@@ -146,6 +149,14 @@
 				FAC3F0852B449416006E7F02 /* URLSessionExtension.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		FAEB700B2B46C35700C412EA /* SplashViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB700C2B46C37100C412EA /* SplashViewController.swift */,
+			);
+			path = SplashViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,6 +239,7 @@
 				FA410E972B43151F009BF045 /* AuthViewController.swift in Sources */,
 				FAC3F0842B4493E5006E7F02 /* URLRequestExtension.swift in Sources */,
 				FAC3F0862B449416006E7F02 /* URLSessionExtension.swift in Sources */,
+				FAEB700D2B46C37100C412EA /* SplashViewController.swift in Sources */,
 				FA410E952B430859009BF045 /* Constants.swift in Sources */,
 				FA065ED02B3074C000B584B4 /* SingleImageViewController.swift in Sources */,
 				FA410E9A2B43195C009BF045 /* WebViewViewController.swift in Sources */,
