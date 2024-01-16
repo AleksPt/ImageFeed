@@ -131,11 +131,11 @@ extension WebViewController {
         let alert = AlertModel(
             title: "Что-то пошло не так(",
             message: "Не удалось войти в систему",
-            buttonText: "Ок",
-            completion: { [weak self] in
-                guard let self = self else { return }
+            buttonText: "Ок"
+            ) { [weak self] in
+                guard let self else { return }
                 dismiss(animated: true)
-            })
+            }
         alertPresenter = AlertPresenter(delegate: self)
         alertPresenter?.showError(for: alert)
     }
