@@ -13,7 +13,7 @@ final class SplashViewController: UIViewController {
     private let authViewControllerID = "AuthViewController"
     private let tabBarViewControllerID = "TabBarViewController"
     private let mainID = "Main"
-    private let spleshScreenLogoImageView: UIImageView = {
+    private let splashScreenLogoImageView: UIImageView = {
         let viewImageLogoScreenSplesh = UIImageView()
         viewImageLogoScreenSplesh.image = UIImage(named: "SplashScreenLogo")
         viewImageLogoScreenSplesh.translatesAutoresizingMaskIntoConstraints = false
@@ -25,6 +25,9 @@ final class SplashViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        guard UIBlockingProgressHUD.isShowing == false else { return }
+        
         if oauth2TokenStorage.token != nil {
             guard let token = oauth2TokenStorage.token else { return }
             fetchProfile(token: token)
@@ -36,8 +39,8 @@ final class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         alertPresenter = AlertPresenter(delegate: self)
-        view.addSubview(spleshScreenLogoImageView)
-        spleshScreenLogoImageViewSetup()
+        view.addSubview(splashScreenLogoImageView)
+        splashScreenLogoImageViewSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,7 +60,10 @@ extension SplashViewController: AuthViewControllerDelegate {
         let storyboard = UIStoryboard(name: mainID, bundle: .main).instantiateViewController(
             identifier: authViewControllerID
         )
-        guard let authViewController = storyboard as? AuthViewController else { return }
+        guard let authViewController = storyboard as? AuthViewController else {
+            assertionFailure("Failed to show Authentication Screen")
+            return
+        }
         authViewController.delegate = self
         authViewController.modalPresentationStyle = .fullScreen
         present(authViewController, animated: true)
@@ -101,12 +107,12 @@ extension SplashViewController {
         }
     }
     
-    func spleshScreenLogoImageViewSetup() {
+    func splashScreenLogoImageViewSetup() {
         NSLayoutConstraint.activate([
-            spleshScreenLogoImageView.heightAnchor.constraint(equalToConstant: 77),
-            spleshScreenLogoImageView.widthAnchor.constraint(equalToConstant: 74),
-            spleshScreenLogoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            spleshScreenLogoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            splashScreenLogoImageView.heightAnchor.constraint(equalToConstant: 77),
+            splashScreenLogoImageView.widthAnchor.constraint(equalToConstant: 74),
+            splashScreenLogoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            splashScreenLogoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
@@ -137,6 +143,7 @@ extension SplashViewController {
                 guard self != nil else {
                     return
                 }
+                self?.switchToAuthViewController()
             })
         alertPresenter?.showError(for: alert)
     }

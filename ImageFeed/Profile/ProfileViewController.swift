@@ -36,11 +36,12 @@ class ProfileViewController: UIViewController {
     }()
     
     private var descriptionLabel: UILabel = {
-        let labelDescription = UILabel ()
+        let labelDescription = UILabel()
         labelDescription.text = "Hello, World!"
         labelDescription.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         labelDescription.font = .systemFont(ofSize: 13)
         labelDescription.translatesAutoresizingMaskIntoConstraints = false
+        labelDescription.numberOfLines = 0
         return labelDescription
     }()
     
@@ -107,16 +108,19 @@ class ProfileViewController: UIViewController {
     func nameLabelSetup() {
         nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor).isActive = true
         nameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 8).isActive = true
+        nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
     }
     
     func loginNameLabelSetup() {
         loginNameLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
         loginNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8).isActive = true
+        loginNameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
     }
     
     func descriptionLabelSetup() {
         descriptionLabel.leadingAnchor.constraint(equalTo: loginNameLabel.leadingAnchor).isActive = true
         descriptionLabel.topAnchor.constraint(equalTo: loginNameLabel.bottomAnchor, constant: 8).isActive = true
+        descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
     }
     
     func logoutButtonSetup() {

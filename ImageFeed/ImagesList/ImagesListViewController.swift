@@ -2,7 +2,9 @@ import UIKit
 
 final class ImagesListViewController: UIViewController {
     
-    private let ShowSingleImageSegueIdentifier = "ShowSingleImage"
+    @IBOutlet private var tableView: UITableView!
+    
+    private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -12,21 +14,20 @@ final class ImagesListViewController: UIViewController {
     }()
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ShowSingleImageSegueIdentifier {
-            let viewController = segue.destination as! SingleImageViewController
-            let indexPath = sender as! IndexPath
-            let image = UIImage(named: photosName[indexPath.row])
-            viewController.image = image
-        } else {
+        guard segue.identifier == showSingleImageSegueIdentifier,
+              let viewController = segue.destination as? SingleImageViewController,
+              let indexPath = sender as? IndexPath else {
             super.prepare(for: segue, sender: sender)
+            return
         }
+        let image = UIImage(named: photosName[indexPath.row])
+        viewController.image = image
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
-    
-    @IBOutlet private var tableView: UITableView!
 }
 
 extension ImagesListViewController {
@@ -48,7 +49,7 @@ extension ImagesListViewController {
 
 extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: ShowSingleImageSegueIdentifier, sender: indexPath)
+        performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -62,8 +63,6 @@ extension ImagesListViewController: UITableViewDelegate {
         let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
         return cellHeight
     }
-    
-    
 }
 
 extension ImagesListViewController: UITableViewDataSource {
