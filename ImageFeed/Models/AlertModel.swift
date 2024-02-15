@@ -5,4 +5,6 @@ struct AlertModel {
     let message: String
     let buttonText: String
     let completion: () -> Void
+    var nextButtonText: String?
+    var nextCompletion: () -> Void = {}
 }

@@ -6,6 +6,7 @@ struct Profile {
     let loginName: String
     let bio: String?
     
+    
     init(callData: ProfileResult) {
         self.userName = callData.userName
         self.name = (callData.firstName) + " " + (callData.lastName ?? "")

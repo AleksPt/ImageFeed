@@ -15,9 +15,7 @@ final class ProfileService {
         if profile != nil { return }
         task?.cancel()
         let request = profileRequest(token: token)
-        let task = urlSession.objectTask(for: request) { [weak self] (
-            result: Result<ProfileResult,Error>
-        ) in
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
                 guard let self = self else { return }
                 switch result {
                 case .success(let body):
@@ -33,6 +31,10 @@ final class ProfileService {
         self.task = task
         task.resume()
     }
+    
+    func clean() {
+            profile = nil
+        }
 }
 
 // MARK: - Methods
@@ -49,3 +51,5 @@ private extension ProfileService {
         return request
     }
 }
+
+
