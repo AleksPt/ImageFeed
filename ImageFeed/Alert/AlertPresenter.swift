@@ -1,3 +1,4 @@
+import Foundation
 import UIKit
 
 final class AlertPresenter: AlertPresenterProtocol {
@@ -7,7 +8,7 @@ final class AlertPresenter: AlertPresenterProtocol {
         self.delegate = delegate
     }
     
-    func showError(for model: AlertModel) {
+    func showAlert(for model: AlertModel) {
         let alert = UIAlertController(
             title: model.title,
             message: model.message,
@@ -20,6 +21,14 @@ final class AlertPresenter: AlertPresenterProtocol {
             }
         alert.addAction(action)
         
+        if let nextButtonText = model.nextButtonText {
+            let nextAction = UIAlertAction(
+                title: nextButtonText,
+                style: .default) { _ in
+                model.nextCompletion()
+            }
+        alert.addAction(nextAction)
+        }
         delegate?.present(alert, animated: true)
     }
 }

@@ -32,7 +32,7 @@ final class ProfileImageService {
                     .post(
                         name: ProfileImageService.didChangeNotification,
                         object: self,
-                        userInfo: ["URL": self.avatarUrl as Any])
+                        userInfo: ["URL": self.avatarUrl])
                 self.task = nil
             case .failure(let error):
                 completion(.failure(error))

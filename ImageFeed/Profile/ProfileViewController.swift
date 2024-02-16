@@ -6,6 +6,7 @@ class ProfileViewController: UIViewController {
     private let oauth2TokenStorage = OAuth2TokenStorage()
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
+    private var alertPresenter: AlertPresenterProtocol?
     private var profileImageServiceObserver: NSObjectProtocol?
     
     private var avatarImageView: UIImageView = {
@@ -36,7 +37,7 @@ class ProfileViewController: UIViewController {
     }()
     
     private var descriptionLabel: UILabel = {
-        let labelDescription = UILabel()
+        let labelDescription = UILabel ()
         labelDescription.text = "Hello, World!"
         labelDescription.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         labelDescription.font = .systemFont(ofSize: 13)
@@ -58,6 +59,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        alertPresenter = AlertPresenter(delegate: self)
         
         view.backgroundColor = UIColor(red: 0.102, green: 0.106, blue: 0.133, alpha: 1)
         
@@ -132,6 +134,7 @@ class ProfileViewController: UIViewController {
     
     @objc
     private func didTapLogoutButton() {
+        showAlertExit()
     }
 }
 
@@ -139,7 +142,7 @@ private extension ProfileViewController {
     func loadAvatar() {
         guard
             let avatarURL = profileImageService.avatarUrl,
-            let profleURL = URL(string: avatarURL) else { return }
+            let profileURL = URL(string: avatarURL) else { return }
         
         let cache = ImageCache.default
         cache.clearMemoryCache()
@@ -148,11 +151,40 @@ private extension ProfileViewController {
         let processor = RoundCornerImageProcessor(cornerRadius: 61)
         avatarImageView.kf.indicatorType = .activity
         avatarImageView.kf.setImage(
-            with: profleURL,
-            placeholder: UIImage(named: "tab_editorial_active 1"),
+            with: profileURL,
+            placeholder: UIImage(named: "ProfileActive"),
             options: [.processor(processor)]
         )
         avatarImageView.layer.masksToBounds = true
         avatarImageView.layer.cornerRadius = 34
+    }
+    
+    func exitProfile() {
+        OAuth2TokenStorage().token = nil
+        WebViewController.clean()
+        profileService.clean()
+        guard let window = UIApplication.shared.windows.first else {
+            fatalError("Invalid Configuration") }
+        window.rootViewController = SplashViewController()
+    }
+    
+    func showAlertExit() {
+        DispatchQueue.main.async {
+            let alert = AlertModel(
+                title: "Пока, пока!",
+                message: "Уверены, что хотите выйти?",
+                buttonText: "Да",
+                completion: { [weak self] in
+                    guard let self = self else { return }
+                    self.exitProfile()
+                },
+                nextButtonText: "Нет",
+                nextCompletion: { [weak self] in
+                    guard let self = self else { return }
+                    self.dismiss(animated: true)
+                })
+            
+            self.alertPresenter?.showAlert(for: alert)
+        }
     }
 }

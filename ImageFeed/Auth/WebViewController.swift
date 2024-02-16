@@ -1,5 +1,6 @@
 import UIKit
 import WebKit
+import Foundation
 
 final class WebViewController: UIViewController {
     
@@ -55,21 +56,10 @@ final class WebViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        webView.removeObserver(
-            self,
-            forKeyPath: #keyPath(
-                WKWebView.estimatedProgress
-            ),
-            context: nil
-        )
+        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), context: nil)
     }
     
-    override func observeValue(
-        forKeyPath keyPath: String?,
-        of object: Any?,
-        change: [NSKeyValueChangeKey : Any]?,
-        context: UnsafeMutableRawPointer?
-    ) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == #keyPath(WKWebView.estimatedProgress) {
             updateProgress()
         } else {
@@ -83,12 +73,8 @@ final class WebViewController: UIViewController {
     }
     
     // MARK: - Public Methods
-    func webView(
-        _ webView: WKWebView,
-        didFailProvisionalNavigation navigation: WKNavigation!,
-        withError error: Error
-    ) {
-        showNetworkError()
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        showError()
     }
     // MARK: - Private Methods
     private func updateProgress() {
@@ -127,16 +113,25 @@ extension WebViewController: WKNavigationDelegate {
 }
 //MARK: - AlertPresenter
 extension WebViewController {
-    private func showNetworkError() {
+    private func showError() {
         let alert = AlertModel(
             title: "Что-то пошло не так(",
             message: "Не удалось войти в систему",
-            buttonText: "Ок"
-            ) { [weak self] in
-                guard let self else { return }
+            buttonText: "Ок",
+            completion: { [weak self] in
+                guard let self = self else { return }
                 dismiss(animated: true)
-            }
+            })
         alertPresenter = AlertPresenter(delegate: self)
-        alertPresenter?.showError(for: alert)
+        alertPresenter?.showAlert(for: alert)
+    }
+    
+    static func clean() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
     }
 }

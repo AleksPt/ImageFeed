@@ -41,6 +41,8 @@
 		E2E5D95F2AC07D7C00C08E19 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5D95E2AC07D7C00C08E19 /* Constants.swift */; };
 		E2E5D9612AC1E19C00C08E19 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5D9602AC1E19C00C08E19 /* AuthViewController.swift */; };
 		E2E5D9662AC1E62200C08E19 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5D9652AC1E62200C08E19 /* WebViewController.swift */; };
+		FAB7CF002B7E4D7E002F54F8 /* ImageListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7CEFF2B7E4D7E002F54F8 /* ImageListModel.swift */; };
+		FAB7CF022B7E4E31002F54F8 /* ImagesListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7CF012B7E4E31002F54F8 /* ImagesListService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +79,8 @@
 		E2E5D95E2AC07D7C00C08E19 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E2E5D9602AC1E19C00C08E19 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		E2E5D9652AC1E62200C08E19 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		FAB7CEFF2B7E4D7E002F54F8 /* ImageListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListModel.swift; sourceTree = "<group>"; };
+		FAB7CF012B7E4E31002F54F8 /* ImagesListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +157,7 @@
 		E27044602A9E4664006A5021 /* ImagesList */ = {
 			isa = PBXGroup;
 			children = (
+				FAB7CF012B7E4E31002F54F8 /* ImagesListService.swift */,
 				E270442E2A97C1FE006A5021 /* ImagesListViewController.swift */,
 				E27044612A9E4673006A5021 /* ImagesListCell.swift */,
 			);
@@ -175,6 +180,7 @@
 				E27147B02AE9979300C1DBE4 /* ProfileModel.swift */,
 				E27147B22AE997B000C1DBE4 /* UserResultModel.swift */,
 				E27147B42AE997E900C1DBE4 /* ProfileImageModel.swift */,
+				FAB7CEFF2B7E4D7E002F54F8 /* ImageListModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -327,12 +333,14 @@
 				E2E5D95F2AC07D7C00C08E19 /* Constants.swift in Sources */,
 				E2CDDE022ADDA175004F1822 /* AlertModel.swift in Sources */,
 				E22FCBD82AAF7C7200C59DA6 /* SingleImageViewController.swift in Sources */,
+				FAB7CF002B7E4D7E002F54F8 /* ImageListModel.swift in Sources */,
 				E2E5D9662AC1E62200C08E19 /* WebViewController.swift in Sources */,
 				E27147B32AE997B000C1DBE4 /* UserResultModel.swift in Sources */,
 				E2CDDDF72AD75ADC004F1822 /* ProfileService.swift in Sources */,
 				E270442D2A97C1FE006A5021 /* SceneDelegate.swift in Sources */,
 				E2CDDDFF2ADDA08C004F1822 /* AlertPresenterProtocol.swift in Sources */,
 				E27147B52AE997E900C1DBE4 /* ProfileImageModel.swift in Sources */,
+				FAB7CF022B7E4E31002F54F8 /* ImagesListService.swift in Sources */,
 				E2B97B992AC779CA003E6E86 /* OAuth2TokenStorage.swift in Sources */,
 				E2CDDDF92ADC34B2004F1822 /* ProfileImageService.swift in Sources */,
 				E2B97BA22ACA3BB4003E6E86 /* SplashViewController.swift in Sources */,
