@@ -11,7 +11,7 @@ final class ImagesListService {
     private let dateFormatter = ISO8601DateFormatter()
     static let DidChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     
-    init(){}
+    private init(){}
     
     func fetchPhotosNextPage() {
         assert(Thread.isMainThread)
@@ -45,7 +45,7 @@ final class ImagesListService {
                         .post(
                             name: ImagesListService.DidChangeNotification,
                             object: self,
-                            userInfo: ["Images" : self.photos])
+                            userInfo: nil)
                     self.task = nil
                 case .failure:
                     assertionFailure("No images")

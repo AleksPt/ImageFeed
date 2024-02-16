@@ -3,7 +3,7 @@ import UIKit
 final class SingleImageViewController: UIViewController {
     
     @IBOutlet private var imageView: UIImageView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet private weak var scrollView: UIScrollView!
     
     var fullImageURL: URL! {
         didSet {
