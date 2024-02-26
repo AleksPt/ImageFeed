@@ -3,7 +3,7 @@ import UIKit
 final class SingleImageViewController: UIViewController {
     
     @IBOutlet private var imageView: UIImageView!
-    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var fullImageURL: URL! {
         didSet {
@@ -89,7 +89,7 @@ extension SingleImageViewController {
                 guard let self = self else { return }
                 self.dismiss(animated: true)
             })
-        alertPresenter?.showAlert(for: alert)
+        alertPresenter?.showError(for: alert)
     }
 }
 

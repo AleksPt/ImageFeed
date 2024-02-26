@@ -1,5 +1,5 @@
 import Foundation
 
 protocol AlertPresenterProtocol: AnyObject {
-    func showAlert(for model: AlertModel)
+    func showError(for model: AlertModel)
 }

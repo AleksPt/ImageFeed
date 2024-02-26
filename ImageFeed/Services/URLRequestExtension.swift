@@ -4,9 +4,9 @@ extension URLRequest {
     static func makeHTTPRequest(
         path: String,
         httpMethod: String,
-        baseURL: URL? = KeyAndUrl.defaultBaseUrl
+        baseURL: URL? = DefaultBaseURL
     ) -> URLRequest? {
-        var request = URLRequest(url: URL(string: path, relativeTo: baseURL) ?? KeyAndUrl.defaultBaseUrl)
+        var request = URLRequest(url: URL(string: path, relativeTo: baseURL) ?? DefaultBaseURL)
         request.httpMethod = httpMethod
         return request
     }
