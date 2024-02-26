@@ -65,7 +65,7 @@ final class ImagesListPresenterSpy: ImagesListViewPresenterProtocol {
 final class ImageListViewControllerSpy: ImagesListViewControllerProtocol {
     var presenter: ImageFeed.ImagesListViewPresenterProtocol?
     
-    func updateTableViewAnimated() {
+    func modelDidChange() {
     }
     
     var photos: [ImageFeed.Photo]

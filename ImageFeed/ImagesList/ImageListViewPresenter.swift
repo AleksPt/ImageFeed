@@ -14,7 +14,7 @@ protocol ImagesListViewPresenterProtocol {
 }
 
 final class ImageListViewPresenter: ImagesListViewPresenterProtocol {
-    var view: ImagesListViewControllerProtocol?
+    weak var view: ImagesListViewControllerProtocol?
     private var imagesListServiceObserver: NSObjectProtocol?
     let imagesListService = ImagesListService.shared
     
@@ -47,7 +47,7 @@ final class ImageListViewPresenter: ImagesListViewPresenterProtocol {
             object: nil,
             queue: .main) { [weak self] _ in
                 guard let self = self else { return }
-                view?.updateTableViewAnimated()
+                view?.modelDidChange()
             }
         imagesListService.fetchPhotosNextPage()
     }

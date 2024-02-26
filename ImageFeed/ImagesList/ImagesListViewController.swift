@@ -3,7 +3,7 @@ import Kingfisher
 
 protocol ImagesListViewControllerProtocol: AnyObject {
     var presenter: ImagesListViewPresenterProtocol? {get set}
-    func updateTableViewAnimated()
+    func modelDidChange()
     var photos: [Photo] {get set}
 }
 
@@ -17,7 +17,6 @@ final class ImagesListViewController: UIViewController, ImagesListViewController
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM yyyy"
-        formatter.locale = Locale(identifier: "ru_RU")
         return formatter
     }()
     
@@ -78,7 +77,7 @@ extension ImagesListViewController {
             }
         }
     }
-     func updateTableViewAnimated() {
+     func modelDidChange() {
         let oldCount = photos.count
         let newCount = imagesListService.photos.count
         photos = imagesListService.photos
