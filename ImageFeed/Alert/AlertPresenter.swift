@@ -8,7 +8,7 @@ final class AlertPresenter: AlertPresenterProtocol {
         self.delegate = delegate
     }
     
-    func showAlert(for model: AlertModel) {
+    func showError(for model: AlertModel) {
         let alert = UIAlertController(
             title: model.title,
             message: model.message,

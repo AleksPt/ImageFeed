@@ -12,7 +12,8 @@ final class SplashViewController: UIViewController {
     private let authViewControllerID = "AuthViewController"
     private let tabBarViewControllerID = "TabBarViewController"
     private let mainID = "Main"
-    private let splashScreenLogoImageView: UIImageView = {
+    var presenter: ProfileViewPresenterProtocol?
+    private let spleshScreenLogoImageView: UIImageView = {
         let viewImageLogoScreenSplesh = UIImageView()
         viewImageLogoScreenSplesh.image = UIImage(named: "SplashScreenLogo")
         viewImageLogoScreenSplesh.translatesAutoresizingMaskIntoConstraints = false
@@ -35,8 +36,8 @@ final class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         alertPresenter = AlertPresenter(delegate: self)
-        view.addSubview(splashScreenLogoImageView)
-        splashScreenLogoImageViewSetup()
+        view.addSubview(spleshScreenLogoImageView)
+        spleshScreenLogoImageViewSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,12 +101,12 @@ extension SplashViewController {
         }
     }
     
-    func splashScreenLogoImageViewSetup() {
+    func spleshScreenLogoImageViewSetup() {
         NSLayoutConstraint.activate([
-            splashScreenLogoImageView.heightAnchor.constraint(equalToConstant: 77),
-            splashScreenLogoImageView.widthAnchor.constraint(equalToConstant: 74),
-            splashScreenLogoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            splashScreenLogoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            spleshScreenLogoImageView.heightAnchor.constraint(equalToConstant: 77),
+            spleshScreenLogoImageView.widthAnchor.constraint(equalToConstant: 74),
+            spleshScreenLogoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spleshScreenLogoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
@@ -136,11 +137,11 @@ extension SplashViewController {
                     return
                 }
                 oauth2TokenStorage.token = nil
-                WebViewController.clean()
+                profileService.cleanCookies()
                 profileService.clean()
             })
         switchToAuthViewController()
-        alertPresenter?.showAlert(for: alert)
+        alertPresenter?.showError(for: alert)
     }
 }
 

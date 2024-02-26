@@ -1,4 +1,5 @@
 import Foundation
+import WebKit
 
 final class ProfileService {
     
@@ -38,10 +39,10 @@ final class ProfileService {
 }
 
 // MARK: - Methods
-private extension ProfileService {
+extension ProfileService {
     func profileRequest(token: String) -> URLRequest {
         guard let url = URL(
-            string: "\(KeyAndUrl.defaultBaseApiUrl)"
+            string: "\(DefaultBaseURL)"
             + "/me")
         else {
             fatalError("Failed to create URL")
@@ -50,6 +51,15 @@ private extension ProfileService {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
+    
+    func cleanCookies() {
+       HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+       WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+           records.forEach { record in
+               WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+           }
+       }
+   }
 }
 
 

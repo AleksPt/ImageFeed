@@ -1,15 +1,24 @@
 import UIKit
 import Kingfisher
+protocol ProfileViewControllerProtocol: AnyObject {
+    var presenter: ProfileViewPresenterProtocol { get set }
+    var nameLabel: UILabel { get set }
+    var loginNameLabel: UILabel { get set }
+    var descriptionLabel: UILabel { get set }
+    func loadAvatar()
+    func showAlertExit()
+}
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController & ProfileViewControllerProtocol {
+    var presenter: ProfileViewPresenterProtocol = {
+        return ProfileViewPresenter()
+    }()
     
-    private let oauth2TokenStorage = OAuth2TokenStorage()
-    private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
     private var alertPresenter: AlertPresenterProtocol?
-    private var profileImageServiceObserver: NSObjectProtocol?
+    private let profileService = ProfileService.shared
     
-    private var avatarImageView: UIImageView = {
+    var avatarImageView: UIImageView = {
         let viewImageAvatar = UIImageView()
         viewImageAvatar.image = UIImage(named: "avatar")
         viewImageAvatar.tintColor = .gray
@@ -18,7 +27,7 @@ class ProfileViewController: UIViewController {
         return viewImageAvatar
     }()
     
-    private var nameLabel: UILabel = {
+    var nameLabel: UILabel = {
         let labelName = UILabel()
         labelName.text = "Екатерина Новикова"
         labelName.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
@@ -27,7 +36,7 @@ class ProfileViewController: UIViewController {
         return labelName
     }()
     
-    private var loginNameLabel: UILabel = {
+    var loginNameLabel: UILabel = {
         let labelNameLogin = UILabel()
         labelNameLogin.text = "@ekaterina_nov"
         labelNameLogin.textColor = UIColor(red: 0.682, green: 0.686, blue: 0.706, alpha: 1)
@@ -36,13 +45,12 @@ class ProfileViewController: UIViewController {
         return labelNameLogin
     }()
     
-    private var descriptionLabel: UILabel = {
+    var descriptionLabel: UILabel = {
         let labelDescription = UILabel ()
         labelDescription.text = "Hello, World!"
         labelDescription.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         labelDescription.font = .systemFont(ofSize: 13)
         labelDescription.translatesAutoresizingMaskIntoConstraints = false
-        labelDescription.numberOfLines = 0
         return labelDescription
     }()
     
@@ -78,26 +86,17 @@ class ProfileViewController: UIViewController {
         view.addSubview(logoutButton)
         logoutButtonSetup()
         
+        presenter.view = self
+        presenter.viewDidLoad()
         updateProfileDetails(profile: profileService.profile)
     }
-    
-    private func updateProfileDetails(profile: Profile?) {
+    func updateProfileDetails(profile: Profile?) {
         guard let profile = profile else { return }
-        nameLabel.text = profile.name
-        loginNameLabel.text = profile.loginName
-        descriptionLabel.text = profile.bio
+        self.nameLabel.text = profile.name
+        self.loginNameLabel.text = profile.loginName
+        self.descriptionLabel.text = profile.bio
         
-        profileImageServiceObserver = NotificationCenter.default.addObserver(
-            forName: ProfileImageService.didChangeNotification,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            guard let self = self else { return }
-            self.loadAvatar()
-        }
-        loadAvatar()
     }
-    
     func avatarImageViewSetup() {
         avatarImageView.layer.masksToBounds = true
         avatarImageView.layer.cornerRadius = 35
@@ -110,19 +109,16 @@ class ProfileViewController: UIViewController {
     func nameLabelSetup() {
         nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor).isActive = true
         nameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 8).isActive = true
-        nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
     }
     
     func loginNameLabelSetup() {
         loginNameLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
         loginNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8).isActive = true
-        loginNameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
     }
     
     func descriptionLabelSetup() {
         descriptionLabel.leadingAnchor.constraint(equalTo: loginNameLabel.leadingAnchor).isActive = true
         descriptionLabel.topAnchor.constraint(equalTo: loginNameLabel.bottomAnchor, constant: 8).isActive = true
-        descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
     }
     
     func logoutButtonSetup() {
@@ -138,11 +134,11 @@ class ProfileViewController: UIViewController {
     }
 }
 
-private extension ProfileViewController {
+extension ProfileViewController {
     func loadAvatar() {
         guard
             let avatarURL = profileImageService.avatarUrl,
-            let profileURL = URL(string: avatarURL) else { return }
+            let profleURL = URL(string: avatarURL) else { return }
         
         let cache = ImageCache.default
         cache.clearMemoryCache()
@@ -151,7 +147,7 @@ private extension ProfileViewController {
         let processor = RoundCornerImageProcessor(cornerRadius: 61)
         avatarImageView.kf.indicatorType = .activity
         avatarImageView.kf.setImage(
-            with: profileURL,
+            with: profleURL,
             placeholder: UIImage(named: "ProfileActive"),
             options: [.processor(processor)]
         )
@@ -159,24 +155,15 @@ private extension ProfileViewController {
         avatarImageView.layer.cornerRadius = 34
     }
     
-    func exitProfile() {
-        OAuth2TokenStorage().token = nil
-        WebViewController.clean()
-        profileService.clean()
-        guard let window = UIApplication.shared.windows.first else {
-            fatalError("Invalid Configuration") }
-        window.rootViewController = SplashViewController()
-    }
-    
     func showAlertExit() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             let alert = AlertModel(
                 title: "Пока, пока!",
                 message: "Уверены, что хотите выйти?",
                 buttonText: "Да",
                 completion: { [weak self] in
                     guard let self = self else { return }
-                    self.exitProfile()
+                    presenter.exitProfile()
                 },
                 nextButtonText: "Нет",
                 nextCompletion: { [weak self] in
@@ -184,7 +171,7 @@ private extension ProfileViewController {
                     self.dismiss(animated: true)
                 })
             
-            self.alertPresenter?.showAlert(for: alert)
+            self?.alertPresenter?.showError(for: alert)
         }
     }
 }
