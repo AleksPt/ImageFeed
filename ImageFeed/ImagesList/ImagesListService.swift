@@ -16,7 +16,7 @@ final class ImagesListService {
     func fetchPhotosNextPage() {
         assert(Thread.isMainThread)
         guard task == nil else { return }
-        let nextPage = lastLoadedPage == nil ? 1 : (lastLoadedPage ?? 1) + 1
+        let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
         guard let token = oauth2TokenStorage.token else { return }
         guard let request = imageTokenRequest(token, page: String(nextPage), perPage: "10") else { return }
         let task = urlSession.objectTask(for: request){ [weak self] (result: Result<[PhotoResult], Error>) in
@@ -45,7 +45,7 @@ final class ImagesListService {
                         .post(
                             name: ImagesListService.DidChangeNotification,
                             object: self,
-                            userInfo: nil)
+                            userInfo: ["Images" : self.photos])
                     self.task = nil
                 case .failure:
                     assertionFailure("No images")
@@ -103,7 +103,7 @@ extension ImagesListService {
         var request = URLRequest.makeHTTPRequest(
             path: "/photos?page=\(page)&&per_page=\(perPage)",
             httpMethod: "GET",
-            baseURL: URL(string: "\(KeyAndUrl.defaultBaseApiUrl)")!)
+            baseURL: URL(string: "\(DefaultBaseURL)")!)
         request?.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
@@ -112,7 +112,7 @@ extension ImagesListService {
         var request = URLRequest.makeHTTPRequest(
             path: "photos/\(photoId)/like",
             httpMethod: "POST",
-            baseURL: URL(string: "\(KeyAndUrl.defaultBaseApiUrl)")!)
+            baseURL: URL(string: "\(DefaultBaseURL)")!)
         request?.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
@@ -121,7 +121,7 @@ extension ImagesListService {
         var request = URLRequest.makeHTTPRequest(
             path: "photos/\(photoId)/like",
             httpMethod: "DELETE",
-            baseURL: URL(string: "\(KeyAndUrl.defaultBaseApiUrl)")!)
+            baseURL: URL(string: "\(DefaultBaseURL)")!)
         request?.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
