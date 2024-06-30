@@ -37,6 +37,3 @@
 | ![preview](https://github.com/AleksPt/ImageFeed/blob/main/1.png) |![preview](https://github.com/AleksPt/ImageFeed/blob/main/2.png) | ![preview](https://github.com/AleksPt/ImageFeed/blob/main/3.png)
 |-------|----------|---------|
 | ![preview](https://github.com/AleksPt/ImageFeed/blob/main/4.png) |![preview](https://github.com/AleksPt/ImageFeed/blob/main/5.png) | ![preview](https://github.com/AleksPt/ImageFeed/blob/main/6.png)
-
-Это приложение с 6 экранами для просмотра изображений через API Unsplash. Работа была объёмная и здесь я: • Работал(а) с Git-клиентом и многопоточностью. • Создал(а) элементы вёрстки со скроллом и экран авторизации. • Реализовал(а) в приложении навигацию. • Подключил(а) стороннюю библиотеку. Стек: #Sourcetree, #UITableView, #ScrollView, #SPM, #Unit-тесты, #UI-тесты
-
